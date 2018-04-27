@@ -31,4 +31,30 @@ No duplicate allow since we are using a HashMap
     }
     
    
-#### 'find' -> look for the element in the set by traversing the list 
+#### 'find' -> look for the element in the set by traversing the list. O(N) Since it might need to traverse the entire LinkedList  
+This uses a recursive method to find the root node (representitive node) of a given set.  
+
+    public T find(T data) {
+    	Node<T> node = nodeReference.get(data);
+    	if (node.prev == null) {
+    		return data;
+    	} else {
+    		return find(node.prev.data);
+    	}
+    }
+    
+#### 'union' -> joins two set together. (Append the root node of the second linked list to the value of the first list)  
+union(x, b)-> [x, y]
+                  [a, b]  
+  
+    public void union(T data1, T data2) {
+    	Node<T> data1Node = nodeReference.get(data1);
+
+    	T root2 = find(data2);
+    	Node<T> root2Node = nodeReference.get(root2);
+
+    	root2Node.prev = data1Node;
+    }
+
+                 
+
