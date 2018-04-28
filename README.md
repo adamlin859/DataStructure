@@ -96,6 +96,46 @@ Change in Node structure:
     }	
     
  
+#### 'find' implemenented path compression where all nodes except for the representative node has .prev O(log N)  
+
+This is done through by setting the parent of the node to representative node, when using the find method.  
+
+	public T find(T data) {
+		Node<T> node = nodeReference.get(data);
+		if (node.parent == null) {
+			return data;
+		} else {
+			// path compression
+			node.parent = nodeReference.get(find(node.parent.data));
+			return node.parent.data;
+		}
+	}
+  
+#### 'union' simply set the parent of one tree to another. Each tree has a rank number(determine number of merges of the same rank. Attach the tree with less rank to the one with higher rank.  
+
+	public void union(T data1, T data2) {
+		T root1 = find(data1);
+		T root2 = find(data2);
+
+		if (root1.equals(root2)) {
+			return;
+		}
+
+		Node<T> root1Node = nodeReference.get(root1);
+		Node<T> root2Node = nodeReference.get(root2);
+
+		if (root1Node.rank < root2Node.rank) {
+			root1Node.parent = root2Node;
+		} else if (root1Node.rank > root2Node.rank) {
+			root2Node.parent = root1Node;
+		} else {
+			root2Node.parent = root1Node;
+			root1Node.rank++;
+		}
+
+	}
+
+  
 
 
 
