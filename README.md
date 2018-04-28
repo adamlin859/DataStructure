@@ -1,5 +1,5 @@
 # DataStructure  
-## Summary of notes for COMS 3134
+## Summary of notes for COMS 3134 
 
 ### Disjoint Sets 
 
@@ -56,5 +56,46 @@ union(x, b)-> [x, y]
     	root2Node.prev = data1Node;
     }
 
-                 
+#### ‘toString' -> creates a HashMap of using the root node as a key and a linked list as the value. O(N) 
+
+    public String toString() {
+    	HashMap<T, LinkedList<T>> rootNode = new HashMap<>();
+    	for (T data: nodeReference.keySet()) {
+    		T root = find(data); 
+
+    		if (!rootNode.containsKey(root)) {
+    			// if the root is not map already
+    			rootNode.put(root, new LinkedList<T>());
+    		}
+
+    		// add the data
+    		rootNode.get(root).add(data);
+    	}
+    	return rootNode.toString();
+    }
+    
+### Disjoint Set Forest  
+Uses trees to implements the same disjoint set structure. Higher performance in find.
+
+Change in Node structure:  
+
+    public class Node<R>{
+        public Node<R> parent;
+        public R data;
+        public int rank;
+
+        public Node(R data, Node<R> parent) {
+            this.parent = parent;
+            this.data = data;
+            this.rank = rank
+        }
+
+        public String toString() {
+            return this.data.toString();
+        }
+    }	
+    
+ 
+
+
 
