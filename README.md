@@ -137,5 +137,15 @@ This is done through by setting the parent of the node to representative node, w
 
   
 
+### Minimum Spanning Tree
 
+In an undirected graph, the minimum spanning tree is formed from graph edges that connectes all vertices of the grpah at lowest total cost. Only exist if the graph is connected. The minimum spanning tree is a tree because it is acyclic and spanning because it covers every vertex with edges |V| - 1.
+
+#### Prim's Algorithm. Running time is O(|V|^2) without heaps (good for dense graphs) and O(|E| log |V|) using binary heap (good for sparse graphs.
+
+Compute the minimum spanning tree by growing the tree in successive stages. This is greedy algorithm that at each stage adds a node to the tree by choice the edges with the lowest cost edge.
+  
+#### Kruskal's Algorithm  
+
+Build minimum spanning tree by continually seleting the edges with the smallest weight and accepts the edges if it does not cause a cycle. Implemented using a forest (a collection of trees). Starting with |V| single node trees, then adding edges to merge two trees into one. Uses disjoint set to determine if there are cycle.
 
