@@ -149,3 +149,7 @@ Compute the minimum spanning tree by growing the tree in successive stages. This
 
 Build minimum spanning tree by continually seleting the edges with the smallest weight and accepts the edges if it does not cause a cycle. Implemented using a forest (a collection of trees). Starting with |V| single node trees, then adding edges to merge two trees into one. Uses disjoint set to determine if there are cycle.
 
+
+### NP-Completeness  
+
+Complexity are not known. One of the formost open problem in theoretical computer science. 
