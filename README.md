@@ -153,3 +153,16 @@ Build minimum spanning tree by continually seleting the edges with the smallest 
 ### NP-Completeness  
 
 Complexity are not known. One of the formost open problem in theoretical computer science. 
+
+#### Easy vs Hard Problem  
+
+Easy problems are easy to check for correctness well hard problems (undecidable problem) is hard to check. 
+
+#### Class NP  
+
+NP stands for nondeterministic polynomial-time. Nondeterministic machine has the power of extremely good (optimal) guessing. It has a choice of next steps and it will always choice the correct step that leads to the solution. NP includes all problems that have polynomial-time solutions. There are problems in NP that do not have polynomial-time solutions, but no such problems has been found. Not all decidable problems are in NP.  
+
+#### NP-Complete Problems  
+
+NP-complete problems are a subset of NP that contains the hardest problems. An NP-complete problem has the property that any
+problem in NP can be polynomially reduced to it.
