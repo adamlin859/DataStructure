@@ -143,13 +143,18 @@ We can represent a graph using adjcency matrix (better for dense graphs) space r
 Simple Vertex (Using adjacency list):
 
 	import java.util.LinkedList;
+	import java.util.List;
+	
 	public class Vertex{
 	    public String name;
 	    public List<Edge> adjVertices;
+	    public boolean known;
+	    public int indegree;
 
 	    public Vertex(String name) {
 		this.name = name;
-		this.adjVertices = new LinkedList<Edge>;
+		this.adjVertices = new LinkedList<Edge>();
+		this.known = false; 
 	    }
 
 	    public void addEdge(Edge edge){
@@ -172,8 +177,85 @@ Simple Edge:
     }
 
 
-### Topological Sort
+### Topological Sort  
 
+Order of the vertices in a directed acyclic graph. Vertices with no path to it are remove in a squence.  
+
+![alt text](https://github.com/ewlovewe420/DataStructure/blob/master/directedGraph.png)  
+  
+Graph can be contructed like this: 
+
+    public static void main(String [] args) {
+        LinkedList<Vertex> vertexList = new LinkedList<>();
+
+
+        Vertex v1 = new Vertex("V1");
+        vertexList.add(v1);
+
+        Edge e1 = new Edge(v1, v2, 1);
+        v1.addEdge(e1);
+        ++v2.indegree; // when there is a directed edge then increase indgree by 1.
+	
+    }
+    
+Topological Sort using LinkList:
+
+    public static void topSort(LinkedList<Vertex> vertexList) throws CycleFoundException{
+        int NUM_VERTICES = vertexList.size();
+        for ( int counter = 0; counter < NUM_VERTICES; counter++) {
+            Vertex v = findNewVertexOfIndegreeZero(vertexList);
+
+            if (v == null)
+                throw new CycleFoundException();
+
+            v.topNum = counter; // ordering to the vertices
+
+            for (Edge e: v.adjVertices)
+                --e.target.indegree;
+
+            System.out.print(v.name + " "); // vertices can also be print out using topNum
+        }
+    }
+
+    public static Vertex findNewVertexOfIndegreeZero(LinkedList<Vertex> vertexList) {
+        for (Vertex v: vertexList){
+            if (!v.known && v.indegree  == 0) {
+                v.known = true;
+                return v;
+            }
+        }
+        return null;
+    }
+    
+Topological Sort using queue:
+    
+    public static void topSortQueue(LinkedList<Vertex> vertexList) throws CycleFoundException{
+        Queue<Vertex> q = new LinkedList<Vertex>();
+        int counter = 0;
+
+        for (Vertex v: vertexList) {
+            if (v.indegree == 0)
+                q.offer(v);
+        }
+
+        while (!q.isEmpty()) {
+            Vertex v = q.poll();
+            v.topNum = ++counter;
+            for (Edge e: v.adjVertices) {
+                if ( --e.target.indegree == 0) {
+                    q.offer(e.target);
+
+                }
+            }
+            System.out.print(v.name + " ");
+        }
+
+        int NUM_VERTICES = vertexList.size();
+        if (counter != NUM_VERTICES)
+            throw new CycleFoundException();
+
+    }
+        
 ### Minimum Spanning Tree
 
 In an undirected graph, the minimum spanning tree is formed from graph edges that connectes all vertices of the grpah at lowest total cost. Only exist if the graph is connected. The minimum spanning tree is a tree because it is acyclic and spanning because it covers every vertex with edges |V| - 1.
