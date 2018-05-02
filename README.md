@@ -1,6 +1,6 @@
 # DataStructure  
 ## Summary of notes for COMS 3134 
-
+  
 ### Disjoint Sets 
 
 Three operation:
@@ -135,7 +135,44 @@ This is done through by setting the parent of the node to representative node, w
 
 	}
 
-  
+### Graphs  
+G = (V, E), graph G has sets of vertices V and edges E. Each edge (arcs) has a parir (v, w), where (v,w) is subset of V. In an undirected graph v is adjacent to w, and w to v. Loop happend when there a path that lead back to orginial node. Cycle have at lease one loop. Undirected graph should noe be considered a cycle. Directed graph that has no cycles is call acyclic.  Undireccted graph is connected if there is a path from every vertex to every other vertex. A directed graph that has a path from every vertex to every other vertex if call strongly connected. Weakly connected happend when nodes in a graph are connected without the regard for the direction. Complete graph is a graph where there is an edge between every pair of verticies.   
+
+We can represent a graph using adjcency matrix (better for dense graphs) space requirement O(|V|^2) and adjacency list (better for sparse graph).  Dense graph |E| = O(|V|^2)
+
+Simple Vertex (Using adjacency list):
+
+	import java.util.LinkedList;
+	public class Vertex{
+	    public String name;
+	    public List<Edge> adjVertices;
+
+	    public Vertex(String name) {
+		this.name = name;
+		this.adjVertices = new LinkedList<Edge>;
+	    }
+
+	    public void addEdge(Edge edge){
+		adjVertices.add(edge);
+	    }
+	}  
+
+Simple Edge:
+
+    public class Edge{
+        public double weight;
+        public Vertex source;
+        public Vertex target;
+
+        public Edge(Vertex source, Vertex target, double weight) {
+            this.source = source;
+            this.target = target;
+            this.weight = weight;
+        }
+    }
+
+
+### Topological Sort
 
 ### Minimum Spanning Tree
 
@@ -148,6 +185,7 @@ Compute the minimum spanning tree by growing the tree in successive stages. This
 #### Kruskal's Algorithm  
 
 Build minimum spanning tree by continually seleting the edges with the smallest weight and accepts the edges if it does not cause a cycle. Implemented using a forest (a collection of trees). Starting with |V| single node trees, then adding edges to merge two trees into one. Uses disjoint set to determine if there are cycle.
+
 
 
 ### NP-Completeness  
