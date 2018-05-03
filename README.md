@@ -3,6 +3,34 @@
 
 ### Sorting  
 
+In java sorting must be object of type Comparable. Only compareTo and operands are allowed on the input data (comparsion- based sorting).
+
+#### Insertion Sort O(N^2)  
+
+Insertion sort pass through the input data N-1 times.  
+
+    public static <AnyType extends Comparable<? super AnyType>> void
+    insertionSort(AnyType [] a ) {
+        int j;
+        for (int p = 0; p < a.length; p++){ /// O(N)
+            AnyType temp = a[p];
+            for (j = p; j > 0 && temp.compareTo(a [j - 1]) < 0; j--) { //O(N)
+                a[j] = a[j - 1];
+            }
+            a[j] = temp;
+        }
+    }
+
+#### Heapsort O(N log N)
+
+Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform deleteMax, 2) Swap last elememt with the head. 3) percolate down. By keeping the max number at the back of the array, we can perform heapsort using only one array.  
+
+
+
+
+#### Shellsot o(N^2)  
+
+#### 
 
 
 ### Disjoint Sets 
