@@ -1,6 +1,10 @@
 # DataStructure  
 ## Summary of notes for COMS 3134 
-  
+
+### Sorting  
+
+
+
 ### Disjoint Sets 
 
 Three operation:
@@ -264,11 +268,36 @@ In an undirected graph, the minimum spanning tree is formed from graph edges tha
 
 Compute the minimum spanning tree by growing the tree in successive stages. This is greedy algorithm that at each stage adds a node to the tree by choice the edges with the lowest cost edge.
   
-#### Kruskal's Algorithm  
+#### Kruskal's Algorithm. O(|E| + |V|) since we are running through the edges and vertices.
 
 Build minimum spanning tree by continually seleting the edges with the smallest weight and accepts the edges if it does not cause a cycle. Implemented using a forest (a collection of trees). Starting with |V| single node trees, then adding edges to merge two trees into one. Uses disjoint set to determine if there are cycle.
 
+    private ArrayList<Edge> kruskal(List<Edge> edges, int numVertices){
+        PriorityQueue<Edge> pq = new PriorityQueue<>(); // edges store in PriortyQueue to better find min
+        DisjointSetLinkedList<Vertex> ds = new DisjointSetLinkedList<Vertex>(); // disjoint sets of vertex
+        ArrayList<Edge> mst = new ArrayList<>(); //the final output of edges
 
+        for (Edge e: edges) {
+            pq.offer(e);
+        }
+
+        for (String u: vertexNames.keySet()){
+            ds.makeSet(vertexNames.get(u));
+        }
+
+        while (mst.size() != numVertices - 1) {
+            Edge e = pq.poll();
+            Vertex uset = ds.find(e.source);
+            Vertex vset = ds.find(e.target);
+
+            if (uset != vset) {
+                mst.add(e);
+                ds.union(uset, vset);
+            }
+        }
+        return mst;
+
+    }
 
 ### NP-Completeness  
 
