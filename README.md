@@ -1,6 +1,22 @@
 # DataStructure  
 ## Summary of notes for COMS 3134 
 
+### AVL Trees  
+
+AVL trees are binary search tree with a balance condition. The depth of the tree is O(log N).(Pefect balance tree has 2^k -1 nodes when k is the height of the tree where empty tree is defined to have a height of -1. AVL Trees have nthe property where the left and the right subtree can only differ by at most 1. All tree operation can be perform in o(log N) except deletion (lazy). 
+
+#### Insertion - AVL  
+
+Four way of inserting:
+
+1. Insertion into the left subtree of the left child (single rotation)
+2. Insertion into the right subtree of the left child (double rotation)
+3. Insertion into the left subtree of the right child (double rotation)
+4. Insertion into the right subtree of the right child (single rotation)
+  
+
+
+
 ### Sorting  
 
 In java sorting must be object of type Comparable. Only compareTo and operands are allowed on the input data (comparsion- based sorting).
