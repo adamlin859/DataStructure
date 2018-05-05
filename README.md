@@ -5,6 +5,30 @@
 
 AVL trees are binary search tree with a balance condition. The depth of the tree is O(log N).(Pefect balance tree has 2^k -1 nodes when k is the height of the tree where empty tree is defined to have a height of -1. AVL Trees have nthe property where the left and the right subtree can only differ by at most 1. All tree operation can be perform in o(log N) except deletion (lazy). 
 
+Construction of the nodes and getting the height:
+
+    private static class AvlNode<AnyType> {
+        AnyType element;
+        AvlNode<AnyType> left;
+        AvlNode<AnyType> right;
+        int height; // height of the tree.
+
+        AvlNode(AnyType theElememt) {
+            this(theElement, null, null);
+        }
+
+        AvlNode(AnyType theElememt, AvlNode<Anytype> lt, AvlNode<AnyType rt ) {
+            this.element = theElememt;
+            this.left = lt;
+            this.right = rt;
+            height = 0;
+        }
+    }
+
+    private int height(AvlNode<AnyType> t) {
+        return t == null ? -1 : t.height;
+    }
+
 #### Insertion - AVL  
 
 Four way of inserting:
@@ -14,6 +38,8 @@ Four way of inserting:
 3. Insertion into the left subtree of the right child (double rotation)
 4. Insertion into the right subtree of the right child (single rotation)
   
+1)  k2 is the inbalance node:
+
 
 
 
