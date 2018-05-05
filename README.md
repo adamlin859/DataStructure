@@ -30,19 +30,44 @@ Construction of the nodes and getting the height:
     }
 
 #### Insertion - AVL  
-
-Four way of inserting:
-
-1. Insertion into the left subtree of the left child (single rotation)
-2. Insertion into the right subtree of the left child (double rotation)
-3. Insertion into the left subtree of the right child (double rotation)
-4. Insertion into the right subtree of the right child (single rotation)
   
-1)  k2 is the inbalance node:
+Four way of inserting:  
 
+1. Insertion into the left subtree of the left child (single rotation).  k2 is the inbalance node
 
+	    private AvlNode<AnyType> rotateWithLeftChild(AvlNode<AnyType> k2) {
+			AvlNode<AnyType> k1 = k2.left;
+			k2.left = k1.right;
+			k1.right = k2;
+			k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+			k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+			return k1;
+	    }
+	    
+2. Insertion into the right subtree of the left child (double rotation). k3 is the inbalance node   
 
+	    private AvlNode<AnyType> doubleWithRightChild(AvlNode<AnyType> k3) {
+			k3.right = rotateWithLeftChild(k3.right)
+			return rotateWithRightChild(k3)
+	    }
+3. Insertion into the left subtree of the right child (double rotation). k3 is the inbalance node  
+  
+	    private AvlNode<AnyType> doubleWithLeftChild(AvlNode<AnyType> k3) {
+		k3.left = rotateWithRightChild(k3.left)
+		return rotateWithLeftChild(k3)
+	    }
+		
+4. Insertion into the right subtree of the right child (single rotation). k2 is the inbalance node  
 
+	    private AvlNode<AnyType> rotateWithRightChild(<AnyType> k2) {
+		AvlNode<AnyType> k1 = k2.right;
+		k2.right = k2.left; 
+		k1.left = k2;
+		k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+		k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+		return k1;
+	    }
+  
 ### Sorting  
 
 In java sorting must be object of type Comparable. Only compareTo and operands are allowed on the input data (comparsion- based sorting).
