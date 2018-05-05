@@ -67,6 +67,26 @@ Four way of inserting:
 		k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
 		return k1;
 	    }
+### Hashing 
+  
+Insertions, deletions and search are in constant average time. findMin, findMax and print sorted order are not supported. Each value has a key that is associated with it. Mapping of the key to the hash table is call a hash function.  
+  
+#### hash function
+  
+Simple hash function (takes he char value of all characters in string and mode by table size):
+
+	public static int hash(String key, int tableSize {
+		int hashVal = 0;
+		 for ( int i = 0; i < key.length(); i++)
+		 	hashVal += key.charAt(i)
+		return hashVal % tableSize;
+	}
+  
+Colision happend when two keys get map to the the same location. 
+
+#### Separate Chaining
+  
+Handle colisions by creating a linkedList at each location and appending value whenever an colison occurs. 
   
 ### Sorting  
 
