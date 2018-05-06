@@ -86,7 +86,61 @@ Colision happend when two keys get map to the the same location.
 
 #### Separate Chaining
   
-Handle colisions by creating a linkedList at each location and appending value whenever an colison occurs. 
+Handle colisions by creating a linkedList at each location and appending value whenever an colison occurs. Load factor is important in determining the complexity of the functions. 
+
+    public SeparateChainingHashTable(int size) {
+        this.theLists = new LinkedList[ nextPrime(size) ];
+        // put a LinkedList in every position in the LinkedList in order to do 
+        // Separate Chaining.
+        this.currentSize = 0;
+    }
+    
+A array is created to store all of the cell of hash table. Each cell is a LinkedList. The load factor lambda is the number of elements in the hash table to the table size. Try to ke4ep the load factor to 1 in separate chaining. 
+
+##### Search  
+
+Unsuccessful search requires examining of lambda node. A successful search require search over 1 + (lambda/2) nodes.  
+
+    public boolean contains(AnyType x){
+        List<AnyType> whichList = theLists[ myhash(x) ];
+        return whichList.contains( x );
+    } 
+
+##### Insert  
+
+Simply append the value to the LinkedList:  
+
+    public void insert( AnyType x) {
+        List<AnyType> whichList  = theLists[myhash(x)];
+
+        if (!whichList.contains(x) {
+            whichList.add(x);
+
+            if (++ currentSize > theLists.length)
+                rehash();
+        }
+        
+    }
+
+##### Remove  
+
+    public void remove(AnyType x) {
+        List<AnyType> whichList  = theLists[myhash(x)];
+
+        if (!whichList.contains(x)) {
+            whichList.remove(x);
+            currentSize--;
+        }
+    }
+    
+#### Linear Probing  
+
+To speed up the alogrithm of hashing, consider using probing to reslove collisions. The load factor for probing should be below lambda = 0.5.  
+
+Linear probing uses a linear function f(i) = i to move the value into a empty cell. Move one up until encounter a emptycell. Linear probing suffer from a problem of primary cluster where any key that haes in to the cluster will require many probing. numebr fo probes using linear probling is roughly 1/2(1+1/(1-lambda)^2) for insertions and unsuccessful searches, and 1/2(1+1(1-lambda)) for successful searches.   
+
+
+ 
   
 ### Sorting  
 
