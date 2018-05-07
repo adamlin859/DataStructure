@@ -221,8 +221,77 @@ When the load factor become too large we perform rehashing. Create an larger tab
         }
     }
     
-#### 
-### Sorting  
+### Priority Queues (Heaps)  
+  
+Can be used to rank jobs by importance. Two operations insert and deleteMin. Important to the implementation of greedy algorithms. Ways to implemement: 1) LinkedList (O(1) for insertion O(N) for deletion). 2) Sorted list (O(N) insertion for O(1) for deletion). 3) binary search tree (O(log N) average for both operations).  
+
+#### Binary Heap  
+
+Two important properties: 1) complete binary tree (all level is fill with exception of the bottom level).  2) Heap-order property. (Smallest element at the root, any node should be smaller than all of its descendants. 
+
+Binary tree with height h has 2^h and 2^(h+1) -1 nodes. Therefore, height is O(log N). In a array, where the element is at position i, the left child is 2i and the right child is 2i + 1. 
+
+#### Insertion  O(log N)
+
+Look for the next available position then percolate up (compare to parent, if parent is bigger then change positions).  
+
+	public void insert(AnyType x) {
+
+		if (currentSize == array.length - 1)
+			enlargeArray(array.length * 2 + 1)
+		array[currentSize + 1]  = x;
+
+		//percolateUp: leave the value at the 0 position and compare to all the 
+		// parent for the size of the array and up.
+		int hole  = ++currentSize;
+		for(array[0] = x; x.compareTo(array[hole / 2]) < 0; hole/=2) {
+			array[hole] = array[i / 2];
+		}
+		array[hole] = x;
+	}
+
+#### deleteMin  
+
+Pop out the element at the root take the last elememt that was inserted and percolate down.
+
+	public AnyType deleteMin() {
+		if (isEmpty())
+			throw new UnderflowException();
+		AnyType minItem = findMin();
+		array[1] = array[currentSize--];
+		percolateDown(1);
+
+		return minItem;
+
+	}
+
+	public void percolateDown(int i) {
+		int child;
+		AnyType tmp = array[hole];
+
+		for (; hole * 2 <= currentSize; hole = child) {
+			child = hole * 2;
+			if (child != currentSize && array[child + 1].compareTo(array[child]) < 0) 
+				child ++;
+			if (array[child].compareTo(tmp) < 0 )
+				array[ hole ] = array [child];
+			else
+				break;
+		}
+
+		array[ hole ] = tmp;
+		
+	}
+
+    public AnyType findMin( ) {
+        if( isEmpty( ) )
+            throw new UnderflowException( );
+        return array[ 1 ];
+    }
+    
+####
+
+### Sorting 
 
 In java sorting must be object of type Comparable. Only compareTo and operands are allowed on the input data (comparsion- based sorting).
 
