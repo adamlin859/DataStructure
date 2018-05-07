@@ -231,7 +231,7 @@ Two important properties: 1) complete binary tree (all level is fill with except
 
 Binary tree with height h has 2^h and 2^(h+1) -1 nodes. Therefore, height is O(log N). In a array, where the element is at position i, the left child is 2i and the right child is 2i + 1. 
 
-#### Insertion  O(log N)
+#### Insertion  O(log N) worst case and average O(1)
 
 Look for the next available position then percolate up (compare to parent, if parent is bigger then change positions).  
 
@@ -289,7 +289,26 @@ Pop out the element at the root take the last elememt that was inserted and perc
         return array[ 1 ];
     }
     
-####
+#### buildHeap  
+
+Build a heap using the existing array, which can be done using insert O(N log N) worst case and O(N) average case. But, another way to do it is to assume a the array is an unstructure tree and percolate from the last parent to the first parent. 
+
+    public BinaryHeap(AnyType [] items) {
+    	currentSize = items.length;
+    	array = (AnyType[])  new Comparable[ (currentSize + 2) * 11 / 10];
+
+    	int i = 1;
+    	for( AnyType item: items) 
+    		array[ i++ ] = item;
+    	buildHeap();
+    }
+
+    private void buildHeap() {
+    	// percolate down the parent
+    	for (int i = currentSize/2; i > 0; i--)
+    		percolateDown(i);
+    }
+    
 
 ### Sorting 
 
