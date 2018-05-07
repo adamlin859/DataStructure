@@ -132,14 +132,23 @@ Simply append the value to the LinkedList:
             currentSize--;
         }
     }
-    
+#### Hashing without LinkedList  
+
+Uses an array that each can contain will the following value:  
+
+1. null
+2. A value and the entry is active
+3. A value and the entry is not active because it is marked delete. 
+
 #### Linear Probing  
 
 To speed up the alogrithm of hashing, consider using probing to reslove collisions. The load factor for probing should be below lambda = 0.5.  
 
 Linear probing uses a linear function f(i) = i to move the value into a empty cell. Move one up until encounter a emptycell. Linear probing suffer from a problem of primary cluster where any key that haes in to the cluster will require many probing. numebr fo probes using linear probling is roughly 1/2(1+1/(1-lambda)^2) for insertions and unsuccessful searches, and 1/2(1+1(1-lambda)) for successful searches.   
 
+#### Quadratic Probing  
 
+Quadratic probing uses function f(i) = i^2. This can be also represented as f(i) = f(i − 1) + 2i − 1. Suffers from secondary clustering. 
  
   
 ### Sorting  
