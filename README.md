@@ -333,9 +333,39 @@ Insertion sort pass through the input data N-1 times.
 #### Heapsort O(N log N)
 
 Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform deleteMax, 2) Swap last elememt with the head. 3) percolate down. By keeping the max number at the back of the array, we can perform heapsort using only one array.  
+  
+    private static <AnyType extends Comparable<? super AnyType>> void
+    heapsort( AnyType [] a) {
+        // this is the same as buildheap
+        for (int i = a.length / 2 - 1; i >= 0; i--)
+            percolateDown(a, i, a.length);
+        // this is the same as deleteMax but we keep the largest values at the end 
+        // of the array.
+        for (int i = a.length -1; i > 0; i--) {
+            swapRefence(a, 0, i);
+            percolateDown(a, 0, i);
+        }
+    }
 
+    // n is the size of the array. differs from the code for the data structure 
+    // minheap since we are doing a maxheap and we do not have a[0] empty.
+    public void percolateDown(AnyType [] a, int i, int n) {
+        int child;
+        AnyType tmp;
 
+        for (tmp = a[i]; leftChild(i) < n; i = child) {
+            child = leftChild(i);
+            if (child != n -1 && a[child].compareTo(array[child + 1]) < 0) 
+                child ++;
+            if (tmp.compareTo(a[ child ]) < 0 )
+                array[ i ] = array [child];
+            else
+                break;
+        }
 
+        a[ i ] = tmp;
+
+    }
 
 #### Shellsot o(N^2)  
 
