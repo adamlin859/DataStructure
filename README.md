@@ -149,8 +149,79 @@ Linear probing uses a linear function f(i) = i to move the value into a empty ce
 #### Quadratic Probing  
 
 Quadratic probing uses function f(i) = i^2. This can be also represented as f(i) = f(i − 1) + 2i − 1. Suffers from secondary clustering. 
+
+Each cell contains an HashEntry:
  
+    private static class HashEntry<AnyType> {
+        public AnyType element; // the element
+        public boolean isActive; // false if marked deleted
+        
+        public HashEntry( AnyType e ) { this( e, true ); }
+        
+        public HashEntry( AnyType e, boolean i ) { element = e; isActive = i; }
+    }
+    
+Most important part of the data structure:  
+
+    private int findPos(AnyType x) {
+        int offset = 1;
+        int currentPos = myhash(x);
+
+        while (array[currentPos] != null && 
+            !array[currentPos].element.equals(x)) {
+            // f(i) = f(i -1) + 2i - 1
+            currentPos += offset;
+            offset += 2;
+            if (currentPos >= array.length) {
+                currentPos -= array.length;
+            }
+        }
+        return currentPos;
+    }
   
+##### Insert 
+
+    public void insert(AnyType x) {
+        int currentPos = findPos(x);
+        if (isActive(array[currentPos])) {
+            return;
+        }
+
+        array[ currentPos ] = new HashEntry<>(x, true);
+
+        if (++currentSize > array.length / 2)
+            rehash(); 
+    }
+
+##### Remove - Uses lazy deletion
+
+     public void remove(AnyType x) {
+        int currentPos = findPos(x);
+        if (isActive(currentPos))
+            array[ currentPos ].isActie = false;
+    }
+
+#### Double hashing  
+
+Uses the offset function of f(i)  = i * hash_2(x).  
+
+#### Rehashing  O(N) 
+  
+When the load factor become too large we perform rehashing. Create an larger table and put the value from the old table to the new table.
+
+    private void rehash() {
+        HashEntry<AnyType> [] oldArray = array;
+
+        allocateArray(nextPrime(2 * oldArray.length));
+        currentSize = 0; 
+
+        for( int i = 0; i < oldArray.length; i++) {
+            if oldArray[ i ] != null && oldArray[ i ].isActive) 
+                insert( oldArray[ i ].element);
+        }
+    }
+    
+#### 
 ### Sorting  
 
 In java sorting must be object of type Comparable. Only compareTo and operands are allowed on the input data (comparsion- based sorting).
