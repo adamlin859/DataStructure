@@ -478,7 +478,7 @@ Main Code:
         }
     }
   
-
+#### Selection sort O(N^2) - looping through the index and selecting the min value.
 #### Shellsot o(N^2)  
 
 
