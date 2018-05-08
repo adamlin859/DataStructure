@@ -418,7 +418,66 @@ Recusively break down a array into two different set of lists and compare the va
 
 #### Quicksort- O(N^2) for worst case and O(N log N) for average case.
 
-Quicksort try to do less comparisons. 
+Quicksort try to do less comparisons. Steps of quicksort:
+
+1) If the number of element is 0 or 1 then return.
+2) Pick any element in the list as the pivot.
+3) Petition the array to groups that are larger, less than the pivot.
+4) sort the two group again using quicksort   
+
+Should not select the first element as the pivot since the the list might be already sort or in a reverse order.  
+
+Use median of three as pivot. Select the right, middle and center element and pick the median.   
+
+    private static <AnyType extends Comparable<? super AnyType>> AnyType
+    median3( AnyType [] a, int left, int right) {
+        int center = (left + right) /2 ;
+        if (a[center].compareTo(a[left]) < 0)
+            swapReferences(a, left, center);
+        if (a[right].compareTo(a[left]) < 0)
+            swapReferences(a, left, right);
+        if (a[right].compareTo(a[center]) < 0)
+            swapReferences(a, left, center);
+
+        swapReferences(a, center, right -1);
+        return a[right -1];
+    }
+    
+Main Code:  
+
+    private static final int CUTOFF;
+
+    public static <AnyType extends Comparable<? super AnyType>> void 
+    quicksort(AnyType [] a) {
+        quicksort(a, 0, a.length -1);
+    }
+
+    private static <AnyType extends Comparable<? super AnyType>> void 
+    quicksort(AnyType [] a, int left, int right) {
+        // use insertion sort if the array is small.
+        if (left + CUTOFF <= right) {
+            AnyType pivot = median3(a, left, right);
+
+            int i = left, j = right -1;
+            for (;;) {
+                // loops from left to right to find value less than pivot
+                while (a[++i].compareTo(pivot) < 0 ) {} 
+                // loops from right to left and find the vlaue that is more than the pivot
+                while (a[--j].compareTo(pivot) > 0 ) {} 
+                if ( i < j ) // if they dont cross 
+                    swapReferences(a, i, j);
+                else
+                    break;
+            }
+            swapReferences(a, i, right -1); // change position of the pivot position i
+
+            quicksort(a, left, i -1 ); // smaller array
+            quicksort(a, i + 1, right ); // larger array
+        } else {
+            insertionSort(a, left, right);
+        }
+    }
+  
 
 #### Shellsot o(N^2)  
 
