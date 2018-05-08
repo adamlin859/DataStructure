@@ -371,6 +371,52 @@ Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform d
 
 Recusively break down a array into two different set of lists and compare the values. Require a new array take more space. 
 
+##### Main Recursive function - recursively call the mergesort and merge on the top and bottom half of array.
+
+    public static <AnyType extends Comparable<? super AnyType>>
+    void mergeSort( AnyType [ ] a ) {
+        AnyType [ ] tmpArray = (AnyType[]) new Comparable[ a.length ];
+        mergeSort( a, tmpArray, 0, a.length - 1 );
+    }
+
+    private static <AnyType extends Comparable<? super AnyType>> void
+    mergeSort(AnyType [ ] a, AnyType [ ] tmpArray, int left, int right) {
+        if (left < right) {
+            int center = (left +  right) /2;
+            mergeSort(a, tmpArray, left, center);
+            mergeSort(a, tmpArray, center + 1, right);
+            merge(a, tmpArray, left, center +1. right);
+        }
+    }
+    
+##### Merge  - comapre the number from the two array and merge them together  
+
+    private static <AnyType extends Comparable<? super AnyType>>
+    void merge( AnyType [ ] a, AnyType [ ] tmpArray,
+            int leftPos, int rightPos, int rightEnd ) {
+        int leftEnd = rightPos -1;
+        int tmpPos = leftPos;
+        int numElements = rightEnd - leftPos + 1;
+
+        while( leftPos <= leftEnd && rightPos <= rightEnd) {
+            if ( a[leftPos].compareTo(a[rightPos]))
+                tmpArray[tmpPos++] =  a[leftPos++];
+            else
+                tmpArray[tmpPos++] = a[rightPos++];
+        }
+
+        // if we have one list larger than the other we can use the following
+        // to copy the rest of numbers.
+
+        while(leftPos <= leftEnd)
+            tmpArray[ tmpPos++ ] = a[ rightPos++ ];
+
+        // copy the array back to the original array.
+        for (int i = 0; i < numElements; i++. rightEnd--) 
+            a[ rightEnd ] = tmpArray[ rightEnd ];
+    }
+
+
 #### Shellsot o(N^2)  
 
 
