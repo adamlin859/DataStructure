@@ -367,7 +367,9 @@ Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform d
 
     }
 
-#### Mergesort O
+#### Mergesort O(N log N) in worst-case  
+
+Recusively break down a array into two different set of lists and compare the values. Require a new array take more space. 
 
 #### Shellsot o(N^2)  
 
