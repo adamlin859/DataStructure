@@ -330,7 +330,7 @@ Insertion sort pass through the input data N-1 times.
         }
     }
 
-#### Heapsort O(N log N)
+#### Heapsort O(N log N), average is 2N log N - O(N log log N)
 
 Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform deleteMax, 2) Swap last elememt with the head. 3) percolate down. By keeping the max number at the back of the array, we can perform heapsort using only one array.  
   
@@ -367,9 +367,11 @@ Use a max heap to perform N - 1 delete max to get the sorted array. 1) Perform d
 
     }
 
+#### Mergesort O
+
 #### Shellsot o(N^2)  
 
-#### 
+
 
 
 ### Disjoint Sets 
