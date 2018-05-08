@@ -416,6 +416,9 @@ Recusively break down a array into two different set of lists and compare the va
             a[ rightEnd ] = tmpArray[ rightEnd ];
     }
 
+#### Quicksort- O(N^2) for worst case and O(N log N) for average case.
+
+Quicksort try to do less comparisons. 
 
 #### Shellsot o(N^2)  
 
